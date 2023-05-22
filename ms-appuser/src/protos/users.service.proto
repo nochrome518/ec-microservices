@@ -4,7 +4,7 @@ package users;
 service UsersService {
     rpc getAll(EmptyArgument) returns (Users);
     rpc createUser(User) returns (User);
-    rpc getUser(UserId) returns (User);
+    rpc searchUser(searchUserBy) returns (Users);
     rpc updateUser(User) returns (User);
     rpc deleteUser(User) returns (User);
 
@@ -34,6 +34,13 @@ message User {
     string deletedDate = 15;
 }
 
-message UserId {
+message searchUserBy {
     int32 id = 1;
+    string fullName = 2;
+    string displayName = 3;
+    int32 cartId = 4;
+    string email = 5;
+    string phoneNumber = 6;
+    string type = 7;
+    int32 status = 8;
 }
