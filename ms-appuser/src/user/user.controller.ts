@@ -15,8 +15,12 @@ export class UserController {
 
     @GrpcMethod('UsersService', 'searchUser')
     searchUser(@Body() searchUserRequest: SearchUserBy): Promise<any> {
-      console.log("searchUserRequest :,",searchUserRequest)
       return this.userService.searchUser(searchUserRequest);
+    }
+
+    @GrpcMethod('UsersService', 'updateUser')
+    updateUser(@Body() updateUserRequest: User): Promise<User> {
+      return this.userService.updateUser(updateUserRequest);
     }
 
 }

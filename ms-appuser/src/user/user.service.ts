@@ -43,4 +43,17 @@ export class UserService extends TypeOrmCrudService<User> {
         return response;
     }
 
+    async updateUser(updateUserRequest: User): Promise<User>{
+        let where = {} as any;
+        where.id = updateUserRequest.id;
+        let userFound = await this.userRepository.findOne({where});
+        if(!userFound){
+            throw new NotFoundException(Messages.INVALID_USER);
+        }
+
+        updateUserRequest = this.userRepository.merge(userFound, updateUserRequest);
+        const user = await this.userRepository.save(updateUserRequest);
+        return user;
+    }
+
 }

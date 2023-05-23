@@ -7,6 +7,9 @@ export class User {
     @PrimaryGeneratedColumn()
     id: number;
 
+    @Column({ name: 'uid' })
+    uid: string;
+
     @Column({ name: 'full_name', length: 50, nullable: true  })
     fullName: string;
 
@@ -24,6 +27,18 @@ export class User {
 
     @Column({ name: 'phone_no', nullable: true })
     phoneNumber: string;
+
+    @Column({ name: 'dob', nullable: true })
+    dob: string;
+
+    @Column({ name: 'country', nullable: true })
+    country: string;
+
+    @Column({ name: 'address_line', nullable: true })
+    addressLine: string;
+
+    @Column({ name: 'city', nullable: true })
+    city: string;
 
     @Column({ type: 'enum', enum: UserType, default: UserType.Appuser })
     type: UserType;
