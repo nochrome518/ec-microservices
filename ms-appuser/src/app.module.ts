@@ -7,23 +7,23 @@ import { ConfigModule } from '@nestjs/config';
 import applicationConfig from 'src/config/application.config';
 
 @Module({
-  imports: [
-    ConfigModule.forRoot({
-      load: [applicationConfig],
-      isGlobal: true,
-    }),
-    TypeOrmModule.forRoot({
-      type: 'mysql',
-      host: 'localhost',
-      username: 'root',
-      password: "Admin@123",
-      database: 'ec_dev',
-      autoLoadEntities : false,
-      synchronize : false,
-    }),
-    UserModule,
-  ],
-  controllers: [AppController],
-  providers: [AppService],
+	imports: [
+		ConfigModule.forRoot({
+		load: [applicationConfig],
+		isGlobal: true,
+		}),
+		TypeOrmModule.forRoot({
+		type: 'mysql',
+		host: 'localhost',
+		username: 'root',
+		password: "Admin@123",
+		database: 'ec_dev',
+		autoLoadEntities : false,
+		synchronize : false,
+		}),
+		UserModule,
+	],
+	controllers: [AppController],
+	providers: [AppService],
 })
 export class AppModule {}

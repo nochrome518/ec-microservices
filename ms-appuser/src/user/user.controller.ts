@@ -10,17 +10,17 @@ export class UserController {
     
     @GrpcMethod('UsersService', 'createUser')
     createUser(@Body() createUserRequest: User): Promise<User> {
-      return this.userService.createUser(createUserRequest);
+      	return this.userService.createUser(createUserRequest);
     }
 
     @GrpcMethod('UsersService', 'searchUser')
     searchUser(@Body() searchUserRequest: SearchUserBy): Promise<any> {
-      return this.userService.searchUser(searchUserRequest);
+      	return this.userService.searchUser(searchUserRequest);
     }
 
     @GrpcMethod('UsersService', 'updateUser')
     updateUser(@Body() updateUserRequest: User): Promise<User> {
-      return this.userService.updateUser(updateUserRequest);
+      	return this.userService.updateUser(updateUserRequest);
     }
 
 }
