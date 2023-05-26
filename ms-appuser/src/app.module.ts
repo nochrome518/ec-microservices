@@ -4,6 +4,7 @@ import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm'; 
 import { UserModule } from 'src/user/user.module'
 import { ConfigModule } from '@nestjs/config';
+import { ProductModule } from './product/product.module';
 import applicationConfig from 'src/config/application.config';
 
 @Module({
@@ -18,10 +19,10 @@ import applicationConfig from 'src/config/application.config';
 		username: 'root',
 		password: "Admin@123",
 		database: 'ec_dev',
-		autoLoadEntities : false,
 		synchronize : false,
 		}),
 		UserModule,
+		ProductModule,
 	],
 	controllers: [AppController],
 	providers: [AppService],

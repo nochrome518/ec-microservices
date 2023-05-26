@@ -2,7 +2,7 @@ import { Inject, Injectable, NotFoundException } from '@nestjs/common';
 import { TypeOrmCrudService } from '@nestjsx/crud-typeorm';
 import { User } from 'src/models/entities/user.entity';
 import { UserRepository } from './user.repository';
-import { SearchUserBy } from 'src/models/requests/search-user.request';
+import { SearchUserBy, searchUserReportBy } from 'src/models/requests/search-user.request';
 import { Messages } from 'src/constants/messages';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -32,13 +32,13 @@ export class UserService extends TypeOrmCrudService<User> {
     async searchUser(searchUserRequest: SearchUserBy): Promise<any>{
         let where = {} as any;
         Object.assign(where,searchUserRequest);
-        let usersFound = await this.userRepository.find({where});
-        if(!usersFound){
+        let userData = await this.userRepository.find({where});
+        if(!userData){
             throw new NotFoundException(Messages.NO_DATA_FOUND);
         }
 
         const response: SearchUsersResponse = {
-            users: usersFound
+            users: userData
         } 
         return response;
     }
@@ -54,6 +54,39 @@ export class UserService extends TypeOrmCrudService<User> {
         updateUserRequest = this.userRepository.merge(userFound, updateUserRequest);
         const user = await this.userRepository.save(updateUserRequest);
         return user;
+    }
+
+    async deleteUser(id: number, deleteUserRequest: User): Promise<any> {
+        let where = {} as any;
+        where.id = id
+        const userFound = await this.userRepository.findOne({where});
+        if (userFound == null) {
+            throw new NotFoundException(`User not found`);
+        }
+        deleteUserRequest = this.userRepository.merge(userFound, deleteUserRequest);
+        return this.userRepository.save(deleteUserRequest);
+    }
+
+    async getUserReport(userReportRequest: searchUserReportBy): Promise<any> {
+        let where: any = {};
+        where = Object.assign(where, userReportRequest);
+        delete where.skip;
+        delete where.take;
+    
+        if (userReportRequest.status) {
+          where['status'] = userReportRequest.status.toString()
+        }
+        const [result, total] = await this.userRepository.findAndCount({
+          where: where,
+          take: userReportRequest.take,
+          skip: userReportRequest.skip,
+          order: { createdDate: 'DESC' }
+        });
+        return {
+          data: { users: result },
+          total: total,
+          count: result.length
+        }
     }
 
 }
