@@ -4,8 +4,8 @@ import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm'; 
 import { UserModule } from 'src/user/user.module'
 import { ConfigModule } from '@nestjs/config';
-import { ProductModule } from './product/product.module';
 import applicationConfig from 'src/config/application.config';
+require('dotenv').config();
 
 @Module({
 	imports: [
@@ -14,15 +14,14 @@ import applicationConfig from 'src/config/application.config';
 		isGlobal: true,
 		}),
 		TypeOrmModule.forRoot({
-		type: 'mysql',
-		host: 'localhost',
-		username: 'root',
-		password: "Admin@123",
-		database: 'ec_dev',
-		synchronize : false,
+			type: 'mysql',
+			host:  process.env.TYPEORM_HOST,//'localhost',
+			username:process.env.TYPEORM_USERNAME,// 'root',
+			password:process.env.TYPEORM_PASSWORD,// 'Admin@123',
+			database: process.env.TYPEORM_DATABASE,//'ec_dev',
+			synchronize : false,
 		}),
 		UserModule,
-		ProductModule,
 	],
 	controllers: [AppController],
 	providers: [AppService],

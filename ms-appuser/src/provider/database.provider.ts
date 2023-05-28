@@ -1,4 +1,5 @@
 import { DataSource } from 'typeorm';
+require('dotenv').config();
 
 export const databaseProviders = [
 	{
@@ -6,15 +7,15 @@ export const databaseProviders = [
 		useFactory: async () => {
 		const dataSource = new DataSource({
 			type: 'mysql',
-			host: 'localhost',
-			port: 3306,
-			username: 'root',
-			password: 'Admin@123',
-			database: 'ec_dev',
+			host:  process.env.TYPEORM_HOST,//'localhost',
+			port:  Number(process.env.TYPEORM_PORT),
+			username:process.env.TYPEORM_USERNAME,// 'root',
+			password:process.env.TYPEORM_PASSWORD,// 'Admin@123',
+			database: process.env.TYPEORM_DATABASE,//'ec_dev',
 			entities: [
 				__dirname + '/../**/*.entity{.ts,.js}',
 			],
-			synchronize: true,
+			synchronize: false,
 		});
 
 		return dataSource.initialize();
