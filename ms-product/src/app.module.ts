@@ -1,15 +1,15 @@
-import { Inject, Module, Options } from '@nestjs/common';
+import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+import { ProductModule } from './product/product.module';
 import { TypeOrmModule } from '@nestjs/typeorm'; 
-import { UserModule } from 'src/user/user.module'
 import { ConfigModule } from '@nestjs/config';
 import applicationConfig from 'src/config/application.config';
 require('dotenv').config();
 
 @Module({
-	imports: [
-		ConfigModule.forRoot({
+  imports: [		
+    ConfigModule.forRoot({
 		load: [applicationConfig],
 		isGlobal: true,
 		}),
@@ -21,9 +21,8 @@ require('dotenv').config();
 			database: process.env.TYPEORM_DATABASE,//'ec_dev',
 			synchronize : false,
 		}),
-		UserModule,
-	],
-	controllers: [AppController],
-	providers: [AppService],
+    ProductModule],
+  controllers: [AppController],
+  providers: [AppService],
 })
 export class AppModule {}

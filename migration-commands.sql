@@ -1,0 +1,40 @@
+CREATE TABLE `users` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `uid` varchar(255) NOT NULL,
+  `cart_id` int DEFAULT NULL,
+  `email` varchar(255) DEFAULT NULL,
+  `full_name` varchar(50) DEFAULT NULL,
+  `display_name` varchar(255) DEFAULT NULL,
+  `dob` varchar(255) DEFAULT NULL,
+  `password` varchar(255) DEFAULT NULL,
+  `address_line` varchar(255) DEFAULT NULL,
+  `phone_no` varchar(255) DEFAULT NULL,
+  `city` varchar(255) DEFAULT NULL,
+  `country` varchar(255) DEFAULT NULL,
+  `type` enum('admin','appuser') NOT NULL DEFAULT 'appuser',
+  `status` enum('0','1','2','3','4','5','6','7') NOT NULL DEFAULT '1',
+  `created_by` int DEFAULT NULL,
+  `created_date` timestamp(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),
+  `updated_by` int DEFAULT NULL,
+  `updated_date` timestamp(6) NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6),
+  `deleted_by` int DEFAULT NULL,
+  `deleted_date` timestamp(6) NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+);
+
+CREATE TABLE `products` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `name` varchar(155) NOT NULL,
+  `category` enum('electronics','homedecorations','accessories','outfit') NOT NULL,
+  `description` text,
+  `price` decimal(10,2) NOT NULL,
+  `quantity` int NOT NULL,
+  `status` enum('0','1','2','3','4','5','6','7') NOT NULL DEFAULT '1',
+  `created_by` int DEFAULT NULL,
+  `created_date` timestamp(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),
+  `updated_by` int DEFAULT NULL,
+  `updated_date` timestamp(6) NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6),
+  `deleted_by` int DEFAULT NULL,
+  `deleted_date` timestamp(6) NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+)
