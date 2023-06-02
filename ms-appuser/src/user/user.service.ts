@@ -82,6 +82,11 @@ export class UserService extends TypeOrmCrudService<User> {
           skip: userReportRequest.skip,
           order: { createdDate: 'DESC' }
         });
+
+        result.map((user) => {
+            delete user.password;
+        })
+        
         return {
           data: { users: result },
           total: total,
