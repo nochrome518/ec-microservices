@@ -8,6 +8,9 @@ export class Product {
     @PrimaryGeneratedColumn()
     id: number;
 
+    @Column({ name: 'merchant_id', nullable: true  })
+    merchantId: number;
+
     @Column({ name: 'name', length: 150, nullable: true  })
     name: string;
 

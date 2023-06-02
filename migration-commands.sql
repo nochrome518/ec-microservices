@@ -40,7 +40,7 @@ CREATE TABLE `products` (
 )
 -- 26-05-23 --
 
--- 31-05-23 --
+-- 02-06-23 --
 CREATE TABLE `merchants` (
   `id` INT PRIMARY KEY,
   `m_id` INT NOT NULL,
@@ -63,4 +63,7 @@ CREATE TABLE `merchants` (
   `deleted_by` INT DEFAULT NULL,
   `deleted_date` TIMESTAMP(6) NULL DEFAULT NULL
 );
--- 31-05-23 --
+
+ALTER TABLE `users` ADD COLUMN `merchant_id` INT DEFAULT NULL AFTER `uid`;
+ALTER TABLE `products` ADD COLUMN `merchant_id` INT DEFAULT NULL AFTER `id`;
+-- 02-06-23 --

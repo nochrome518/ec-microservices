@@ -10,6 +10,9 @@ export class User {
     @Column({ name: 'uid' })
     uid: string;
 
+    @Column({ name: 'merchant_id', nullable: true })
+    merchantId: number;
+
     @Column({ name: 'full_name', length: 50, nullable: true  })
     fullName: string;
 
